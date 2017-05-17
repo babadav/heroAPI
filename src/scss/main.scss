@@ -1,3 +1,5 @@
-body {
-	background-color: red;
-}
+@import 'reset';
+@import 'general';
+@import 'header';
+@import 'cta';
+@import 'hero';

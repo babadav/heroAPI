@@ -5,52 +5,52 @@ var HeroApi = (function(){
 	function populate(hero){
 		console.log(hero);
 		for (var i = hero.data.results.length - 1; i >= 0; i--) {
+			var heroDiv = $('<div>');
 			var name = $('<h1>');
 			var thumbnail = $('<img>');
 			var notFoundImg = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
 
+
+			$(heroDiv).addClass('hero-div');
 			console.log(hero.data.results[i].name);
 			$(name).html(hero.data.results[i].name);
 
-			if(hero.data.results[i].thumbnail.path == notFoundImg){
-				$(thumbnail).hide();
-			} else {
+			// if(hero.data.results[i].thumbnail.path == notFoundImg){
+			// 	$(thumbnail).hide();
+			// 	$(name).hide();
+			// } else {
 				$(thumbnail).attr('src', hero.data.results[i].thumbnail.path + '.' + hero.data.results[i].thumbnail.extension);
-			}
+			// }
 			
-			$('body').append(thumbnail);
-			$('body').append(name);	
+			$(heroDiv).append(thumbnail);
+			$(heroDiv).append(name);	
+			$('.results-container').append(heroDiv);
 		}
 
 	}
 
 	function setupListeners(){
 		var url = 'https://gateway.marvel.com/v1/public/';
-		var apiKey = '7e4c5c423179dd65da3bd09829eeee78';
+		var apiKey = '1462a753c71ee4965b382fa71c3ef8f5';
 
 		$('.button-1').on('click', function(e){
 			e.preventDefault();
 			var offset = 0;
-			for (var i = 75; i >= 0; i--) {
+			for (var i = 1; i >= 0; i--) {
 				$.ajax({
 					url: url + 'characters?apikey=' + apiKey + '&offset=' + offset
 				})
 				.done(populate);
 
-				if ( i < 74 ) {
-					offset+=20;
-				} else {
-					offset+=4;
-				}
+				// if ( i < 74 ) {
+				// 	offset+=20;
+				// } else {
+				// 	offset+=4;
+				// }
 			}
 		});
 
-		// $('.button-2').on('click', function(e){
-		// 	e.preventDefault();
-		// 	$.ajax({
-		// 		url: url + 'character'
-		// 	})
-		// })
+
 
 	}
 

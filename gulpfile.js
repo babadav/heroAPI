@@ -82,9 +82,6 @@ gulp.task('clean', function() {
 	return del(['assets/js', 'assets/css']);
 })
 
-gulp.task('hi', function() {
-	console.log('hi there');
-});
 
 gulp.task('default', ['clean', 'styles-min', 'scripts-min']);
 

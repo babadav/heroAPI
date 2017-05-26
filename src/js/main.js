@@ -4,27 +4,52 @@ var HeroApi = (function(){
 
 	function populate(hero){
 		console.log(hero);
-		for (var i = hero.data.results.length - 1; i >= 0; i--) {
+		for (var i = 0; i < hero.data.results.length; i++) {
 			var heroDiv = $('<div>');
 			var name = $('<h1>');
+			var description = $('<p>');
 			var thumbnail = $('<img>');
 			var notFoundImg = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
 
 
 			$(heroDiv).addClass('hero-div');
-			console.log(hero.data.results[i].name);
+			console.log(hero.data.results[i].description);
 			$(name).html(hero.data.results[i].name);
 
-			// if(hero.data.results[i].thumbnail.path == notFoundImg){
-			// 	$(thumbnail).hide();
-			// 	$(name).hide();
-			// } else {
-				$(thumbnail).attr('src', hero.data.results[i].thumbnail.path + '.' + hero.data.results[i].thumbnail.extension);
-			// }
+			$(thumbnail).attr('src', hero.data.results[i].thumbnail.path + '.' + hero.data.results[i].thumbnail.extension);
 			
 			$(heroDiv).append(thumbnail);
 			$(heroDiv).append(name);	
 			$('.results-container').append(heroDiv);
+
+			$(heroDiv).on('click', expandInfoWindow);
+		}
+
+		function expandInfoWindow(e) {
+			e.preventDefault();
+			console.dir(e.currentTarget);
+			var heroContainer = e.currentTarget;
+			var heroImg = heroContainer.children[0];
+			$(this).toggleClass('active');
+
+			console.log(resultsContainer);
+			var y = document.querySelectorAll('.hero-div');
+			console.log(y);
+
+			// for (var i = 0; i < y.length; i++) {
+			// 	if (y[i].classList !== 'active') {
+
+			// 		$(heroContainer).addClass('active');
+			// 		//TweenMax.to(heroContainer, 1, {width: '100%'});
+			// 		//TweenMax.to(heroImg, 1, {width: '30%'});
+			// 	} else if (y[i].classList == 'active') {
+			// 		$(heroContainer).removeClass('active');
+			// 		//TweenMax.to(heroContainer, 1, {width: '30%'});
+			// 		//TweenMax.to(heroImg, 1, {width: '100%'});
+
+			// 	}
+			// }
+			
 		}
 
 	}
@@ -36,7 +61,7 @@ var HeroApi = (function(){
 		$('.button-1').on('click', function(e){
 			e.preventDefault();
 			var offset = 0;
-			for (var i = 1; i >= 0; i--) {
+			for (var i = 0; i < 1; i++) {
 				$.ajax({
 					url: url + 'characters?apikey=' + apiKey + '&offset=' + offset
 				})
@@ -49,6 +74,8 @@ var HeroApi = (function(){
 				// }
 			}
 		});
+
+		
 
 
 

@@ -10,8 +10,9 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
+		align-items: center;
 		width: 30%;
-		color: white;
+		color: black;
 		background-color: white;
 		margin-bottom: 70px;
 		transition: 1s all;
@@ -27,10 +28,21 @@
 			text-align: center;
 		}
 		&.active {
+			flex-direction: row;
 			width:100%;
 			img {
 				width:30%;
 			}
+		}
+
+		.hero-description {
+			display: none;
+			color: black;
+			max-width: 50%;
+		}
+
+		.show{
+			display: block;
 		}
 	}
 }

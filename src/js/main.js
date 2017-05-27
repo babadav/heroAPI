@@ -6,20 +6,48 @@ var HeroApi = (function(){
 		console.log(hero);
 		for (var i = 0; i < hero.data.results.length; i++) {
 			var heroDiv = $('<div>');
+			var heroInfoDiv = $('<div>');
 			var name = $('<h1>');
 			var description = $('<p>');
+			var heroEvents= $('<p>');
+			var heroSeries = $('<p>');
+			var heroStories = $('<p>');
 			var thumbnail = $('<img>');
 			var notFoundImg = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
 
 
 			$(heroDiv).addClass('hero-div');
-			console.log(hero.data.results[i].description);
-			$(name).html(hero.data.results[i].name);
+			
+			
 
 			$(thumbnail).attr('src', hero.data.results[i].thumbnail.path + '.' + hero.data.results[i].thumbnail.extension);
-			
 			$(heroDiv).append(thumbnail);
-			$(heroDiv).append(name);	
+
+			$(description).html(hero.data.results[i].description);
+			$(description).addClass('hero-description');
+			$(heroInfoDiv).append(description);
+
+			if (hero.data.results[i].events.items[0]) {
+				$(heroEvents).html(hero.data.results[i].events.items[0].name);
+				$(heroEvents).addClass('hero-description');
+				$(heroInfoDiv).append(heroEvents);
+			}
+
+			if (hero.data.results[i].series.items[0]) {
+				$(heroSeries).html(hero.data.results[i].series.items[0].name);
+				$(heroSeries).addClass('hero-description');
+				$(heroInfoDiv).append(heroSeries);
+			}
+
+			if (hero.data.results[i].stories.items[0]) {
+				$(heroStories).html(hero.data.results[i].stories.items[0].name);
+				$(heroStories).addClass('hero-description');
+				$(heroInfoDiv).append(heroStories);
+			}
+
+			$(name).html(hero.data.results[i].name);
+			$(heroInfoDiv).append(name);
+			$(heroDiv).append(heroInfoDiv);	
 			$('.results-container').append(heroDiv);
 
 			$(heroDiv).on('click', expandInfoWindow);
@@ -27,28 +55,9 @@ var HeroApi = (function(){
 
 		function expandInfoWindow(e) {
 			e.preventDefault();
-			console.dir(e.currentTarget);
-			var heroContainer = e.currentTarget;
-			var heroImg = heroContainer.children[0];
+			var heroInfo = e.currentTarget.children[1].children;
 			$(this).toggleClass('active');
-
-			console.log(resultsContainer);
-			var y = document.querySelectorAll('.hero-div');
-			console.log(y);
-
-			// for (var i = 0; i < y.length; i++) {
-			// 	if (y[i].classList !== 'active') {
-
-			// 		$(heroContainer).addClass('active');
-			// 		//TweenMax.to(heroContainer, 1, {width: '100%'});
-			// 		//TweenMax.to(heroImg, 1, {width: '30%'});
-			// 	} else if (y[i].classList == 'active') {
-			// 		$(heroContainer).removeClass('active');
-			// 		//TweenMax.to(heroContainer, 1, {width: '30%'});
-			// 		//TweenMax.to(heroImg, 1, {width: '100%'});
-
-			// 	}
-			// }
+			$(heroInfo).toggleClass('show');
 			
 		}
 
